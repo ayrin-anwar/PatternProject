@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+ <head>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/ocr_css.css') }}"/>
+     <link href='https://fonts.googleapis.com/css?family=M PLUS Rounded 1c' rel='stylesheet'>
+ </head>
+ <title>Play with images</title>
+  <script type="text/javascript"
+         src="{{ url_for('static', filename='js/ocr_js.js') }}"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script type="text/javascript"
+         src="{{ url_for('static', filename='js/ocr_jquery.js') }}"></script>
+ <body>
+    <h1>Welcome  to the image processing and translation. Here we are providing few image related operation to perform</h1>
+       <ol>
+           <b>
+            <li>Extracting the text from the image file by using  the Optical Character Recognition</li>
+           <li>Detecting the language of the text</li>
+           <li>Translate the text to selected language</li>
+           <li>Extracting text from the image and translating to other language</li>
+           </b>
+       </ol>
+   <h3>Choose the operation to perform</h3>
+   <form method=post enctype=multipart/form-data >
+       <label for="ocr">
+           <input type="radio" id="ocr"  name="ocr" onclick="ShowHideDiv()" /> Extract text from the image</br>
+        </label>
+        <label for="translate">
+            <input type="radio" id="translate"  name="ocr" onclick="ShowHideDiv()" /> Translate the text</br>
+        </label>
+        <label for="ocr_translate">
+            <input type="radio" id="ocr_translate" name="ocr"  onclick="ShowHideDiv()" />Extract text from the image and translate it</br>
+        </label>
+        <br />
+        <div id="translate_text_box" style="display: none">
+            Enter the text to translate:</br>
+             <textarea type="text" name="translate"  placeholder="Type here to translate. Example-'Welcome'" rows="10" cols="40"></textarea>
+            <p>Select the language to translate</p>
+            <div id="myDropDownListDiv">
+                <select name="languages">
+                    <!-- <option value="Tamil">Tamil</option>  -->
+                    <option value="english">English</option>
+                    <!-- <option value="Hindi">Hindi</option>  -->
+                    <option value="bengali">Bangla</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="spanish">Spanish</option>
+
+
+                </select>
+            </div>
+          <br>
+          <input type="submit" name=language value=Translate>
+        </div>
+
+
+       <div id="ocr_input" style="display: none">
+            Select the image file:
+           <input type=file name=file>
+         <input type=submit value=Upload>
+        </div>
+       <div id="ocr_translate_input" style="display: none">
+            Select the image file:
+           <input type=file name=file1>
+             <p>Select the language to translate</p>
+             <div id="anotherDiv">
+                  <select name="languages">
+                    <!-- <option value="Tamil">Tamil</option>  -->
+                    <option value="english">English</option>
+                    <!-- <option value="Hindi">Hindi</option>  -->
+                    <option value="bengali">Bangla</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="spanish">Spanish</option>
+
+
+                </select>
+            </div>
+            <br>
+              <input type="submit" name=language value=upload>
+        </div>
+   </form>
+
+<form>
+    {% if extracted_text %}
+    <h2>Result:</h2>
+     <p> The extracted text from the image above is: <b> {{ extracted_text }} </b></p>
+    {% endif %}
+       {% if detected_language %}
+     <p> Language detected from the text is: <b> {{ detected_language }} </b></p>
+    {% endif %}
+    {% if translated_text %}
+     <p>  The translated text from the image above is: <b> {{ translated_text }} </b></p>
+   {% endif %}
+</form>
+ </body>
+</html>
